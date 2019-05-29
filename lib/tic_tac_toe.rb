@@ -74,7 +74,7 @@ def won?
     end
   end
     result
-    binding.pry
+    #binding.pry
 end
 
 def full?
@@ -87,7 +87,7 @@ end
 
 def over?
   #binding.pry
-  won? || full?
+  won? || draw?
 end
 
 def winner
