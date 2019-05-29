@@ -27,20 +27,11 @@ def move(index, token = "X")
 end
 
 def position_taken?(position)
-  if(@board[position] == "X" || @board[position] == "O")
-    return true
-  else
-    return false
-  end
+  @board[position] == "X" || @board[position] == "O"
 end
 
 def valid_move?(position)
-  if(position >= 0 && position <= 8 && @board[position] == " ") 
-    return true
-  else
-    return false
-  end
-
+  position >= 0 && position <= 8 && @board[position] == " "
 end
 
 def turn_count
@@ -58,28 +49,31 @@ def turn
   
   if valid_move?(index)
     move(index, current_player)
+    display_board
   else
     turn
   end
-  display_board
 end
 
 def won?
+  result = false
   temp = []
     #binding.pry
-    WIN_COMBINATIONS.each_with_index do |combo_arr, combo_index|
+    WIN_COMBINATIONS.each do |combo_arr|
+      
       combo_arr.each do |position_index|
          
       temp << @board[position_index]
       end
+     
     if temp.all? {|token| token == "X" } || temp.all? {|token| token == "O" }
-      return combo_arr
+      result = combo_arr
     else
       temp = []
      #binding.pry
     end
   end
-    return false
+    result
 end
 
 def full?
@@ -87,11 +81,7 @@ def full?
 end
 
 def draw?
-  if full? && !won?
-    return true
-  else
-    return false
-   end
+  full? && !won?
 end
 
 def over?
@@ -113,13 +103,14 @@ def winner
   end
   
 def play
-  until over? 
-    turn
-  end
-  if winner
-    puts "Congratulations #{winner}!"
-  else
-    puts "Cat's Game!"
-  end
-end
+        until over?
+            turn
+        end
+
+        if won?
+            puts "Congratulations #{winner}!"
+        else draw?
+            puts "Cat's Game!"
+        end
+    end
 end
