@@ -74,6 +74,7 @@ def won?
     end
   end
     result
+    binding.pry
 end
 
 def full?
