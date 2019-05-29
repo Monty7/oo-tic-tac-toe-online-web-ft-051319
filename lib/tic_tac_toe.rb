@@ -103,7 +103,7 @@ def winner
   end
   
 def play
-        until over? == false
+        while over? == false
             turn
         end
 
